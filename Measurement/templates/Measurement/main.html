@@ -2,7 +2,22 @@
 {% load crispy_forms_tags %}
 {% block title %} Calcultae distance{% endblock title%}
 
-{% block body %} 
+{% block body %}   
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">The distance is given below from you to {{destination}}.</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{distance}} km
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <div class="container">
     {{map|safe}}
@@ -15,6 +30,11 @@
     This product includes GeoLite2 data created by MaxMind, available from
     <a href="https://www.maxmind.com">https://www.maxmind.com</a>.
 </div>
-
-
+{% if request.POST and distance is not None%}
+<script>
+    $(window).on('load',function(){
+        $('#exampleModal').modal('show')
+    })
+</script>
+{% endif %}
 {% endblock body %}
